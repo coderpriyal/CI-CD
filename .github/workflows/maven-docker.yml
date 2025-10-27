@@ -38,4 +38,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/springboot-cicd-demo:latest
+          tags: priy947/springboot-cicd-demo:latest
+
