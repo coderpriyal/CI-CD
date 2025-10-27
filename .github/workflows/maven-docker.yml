@@ -36,10 +36,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Step 5: Build and push Docker image
+      # Step 5: Build and push Docker image (uses official Docker action)
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/springboot-cicd-demo:latest
+          tags: docker.io/priy947/springboot-cicd-demo:latest
+
