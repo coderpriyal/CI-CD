@@ -25,14 +25,23 @@ jobs:
       - name: Run Tests
         run: mvn test
 
-      - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/springboot-cicd-demo:latest .
+      # ✅ Set up Docker Buildx (required for buildx build command)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
+      # ✅ Build Docker image
+      - name: Build Docker image
+        run: |
+          docker buildx build --load \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/springboot-cicd-demo:latest .
+
+      # ✅ Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # ✅ Push image to Docker Hub
       - name: Push image to Docker Hub
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/springboot-cicd-demo:latest
